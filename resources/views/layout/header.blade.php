@@ -71,13 +71,17 @@
         <div class="container">
             <ul>
                 <li class="menu-item {{ $activeMenu == 'level' ? 'active' : '' }}">
-                    <a href="{{ url('/level') }}" class="menu-link">
-                        <span> <i class="bi bi-stack me-2"></i>Data Level</span>
+                    <a href="{{ url('/level') }}" class="menu-link"
+                        style="{{ $activeMenu == 'level' ? '' : 'color: #8e9ed8' }}">
+                        <span class="align-content-center"><i class="bi bi-stack me-2"></i>Data Level</span>
                     </a>
                 </li>
-                <li class="menu-item {{ $activeMenu == 'user' ? 'active' : '' }}  ">
-                    <a href="{{ url('/user') }}" class="menu-link">
-                        <span><i class="bi bi-people-fill"></i>Data Pengguna</span>
+                <li class="menu-item {{ $activeMenu == 'user' ? 'active' : '' }}">
+                    <a href="{{ url('/user') }}" class="menu-link"
+                        style="{{ $activeMenu == 'user' ? '' : 'color: #8e9ed8' }}">
+                        <span class="align-content-center">
+                            <i class="bi bi-people-fill me-2"></i>Data Pengguna
+                        </span>
                     </a>
                 </li>
             </ul>
