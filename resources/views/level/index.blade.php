@@ -145,9 +145,13 @@
                         orderable: false,
                         searchable: false
                     }
+                ],
+                order: [
+                    [1,
+                        'asc'
+                    ]
                 ]
             });
-
             $('#level_id').on('change', function() {
                 dataLevel.ajax.reload();
             });
