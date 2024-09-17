@@ -158,4 +158,19 @@ class UserController extends Controller
         }
         return redirect('/');
     }
+    public function reset()
+    {
+        try {
+            UserModel::query()->delete();
+            return response()->json([
+                'status' => true,
+                'message' => 'Semua data level berhasil dihapus.'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Terjadi kesalahan saat menghapus data: ' . $e->getMessage(),
+            ]);
+        }
+    }
 }

@@ -49,6 +49,28 @@
         </div>
         <div id="userModal" class="modal fade animate shake" tabindex="-1" role="dialog" databackdrop="static"
             data-keyboard="false" data-width="75%" aria-hidden="true"></div>
+
+        <div id="confirmResetModal" class="modal fade" tabindex="-1" role="dialog"
+            aria-labelledby="confirmResetModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmResetModalLabel">Konfirmasi</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-warning">
+                            <h5 class="text-danger"><i class="icon fas fa-ban"></i> Konfirmasi !!!</h5>
+                            Apakah Anda ingin menghapus semua data di bawah ini?
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-danger" id="confirmResetButton">Ya, Hapus Semua</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 @endsection
 @push('css')
@@ -56,9 +78,47 @@
 @push('js')
     <script>
         function modalAction(url = '') {
-            $('#userModal').load(url, function() {
-                $('#userModal').modal('show');
-            });
+            if (url.includes('reset')) {
+                // Jika URL mengarah ke reset, tampilkan modal konfirmasi
+                $('#confirmResetModal').modal('show');
+                $('#confirmResetButton').off('click').on('click', function() {
+                    $.ajax({
+                        url: url,
+                        type: 'DELETE',
+                        data: {
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            if (response.status) {
+                                $('#confirmResetModal').modal('hide');
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Berhasil',
+                                    text: response.message
+                                });
+                                dataUser.ajax.reload();
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Gagal',
+                                    text: response.message
+                                });
+                            }
+                        },
+                        error: function() {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Terjadi Kesalahan',
+                                text: 'Tidak dapat menghapus data.'
+                            });
+                        }
+                    });
+                });
+            } else {
+                $('#userModal').load(url, function() {
+                    $('#userModal').modal('show');
+                });
+            }
         }
         var dataUser;
         $(document).ready(function() {
