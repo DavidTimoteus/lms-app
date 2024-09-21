@@ -42,24 +42,26 @@
                     <a href="#" id="topbarUserDropdown"
                         class="user-dropdown d-flex align-items-center dropend dropdown-toggle "
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="avatar avatar-md2">
-                            {{-- <img src="./assets/compiled/jpg/1.jpg" alt="Avatar"> --}}
-                        </div>
                         <div class="text">
-                            <h6 class="user-dropdown-name">David Timoteus</h6>
-                            <p class="user-dropdown-status text-sm text-muted">Admin</p>
+                            <h6 class="user-dropdown-name">{{ Auth::user() ? Auth::user()->name : 'Guest' }}</h6>
+                            <p class="user-dropdown-status text-sm text-muted">
+                                {{ Auth::check() && Auth::user()->level ? Auth::user()->level->level_name : 'Not Logged In' }}
+                            </p>
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end shadow-lg" aria-labelledby="topbarUserDropdown">
-                        <li><a class="dropdown-item" href="#">My Account</a></li>
-                        <li><a class="dropdown-item" href="#">Settings</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="auth-login.html">Logout</a></li>
+                        @if (Auth::check())
+                            <li><a class="dropdown-item" href="#">My Account</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="{{ url('logout') }}">Logout</a></li>
+                        @else
+                            <li><a class="dropdown-item" href="{{ url('login') }}">Login</a></li>
+                        @endif
                     </ul>
                 </div>
-
                 <!-- Burger button responsive -->
                 <a href="#" class="burger-btn d-block d-xl-none">
                     <i class="bi bi-justify fs-3"></i>
@@ -70,20 +72,35 @@
     <nav class="main-navbar">
         <div class="container">
             <ul>
-                <li class="menu-item {{ $activeMenu == 'level' ? 'active' : '' }}">
-                    <a href="{{ url('/level') }}" class="menu-link"
-                        style="{{ $activeMenu == 'level' ? '' : 'color: #8e9ed8' }}">
-                        <span class="align-content-center"><i class="bi bi-stack me-2"></i>Data Level</span>
-                    </a>
-                </li>
-                <li class="menu-item {{ $activeMenu == 'user' ? 'active' : '' }}">
-                    <a href="{{ url('/user') }}" class="menu-link"
-                        style="{{ $activeMenu == 'user' ? '' : 'color: #8e9ed8' }}">
-                        <span class="align-content-center">
-                            <i class="bi bi-people-fill me-2"></i>Data Pengguna
-                        </span>
-                    </a>
-                </li>
+                @if (Auth::check() && Auth::user()->level && Auth::user()->level->level_code === 'ADM')
+                    <li class="menu-item {{ $activeMenu == 'level' ? 'active' : '' }}">
+                        <a href="{{ url('/level') }}" class="menu-link"
+                            style="{{ $activeMenu == 'level' ? '' : 'color: #8e9ed8' }}">
+                            <span class="align-content-center"><i class="bi bi-stack me-2"></i>Data Level</span>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ $activeMenu == 'user' ? 'active' : '' }}">
+                        <a href="{{ url('/user') }}" class="menu-link"
+                            style="{{ $activeMenu == 'user' ? '' : 'color: #8e9ed8' }}">
+                            <span class="align-content-center">
+                                <i class="bi bi-people-fill me-2"></i>Data Pengguna
+                            </span>
+                        </a>
+                    </li>
+                @else
+                    <li class="menu-item {{ $activeMenu == 'home' ? 'active' : '' }}">
+                        <a href="#Home" class="menu-link"
+                            style="{{ $activeMenu == 'home' ? '' : 'color: #8e9ed8' }}">
+                            <span><i class="bi bi-stack me-2"></i>Home</span>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ $activeMenu == 'contact' ? 'active' : '' }}">
+                        <a href="#ContactUs" class="menu-link"
+                            style="{{ $activeMenu == 'contact' ? '' : 'color: #8e9ed8' }}">
+                            <span><i class="bi bi-telephone-fill me-2"></i>Contact Us</span>
+                        </a>
+                    </li>
+                @endif
             </ul>
         </div>
     </nav>

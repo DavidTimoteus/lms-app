@@ -10,6 +10,11 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
         rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter';
+        }
+    </style>
     <!-- Font Awesome -->
     <link rel="stylesheet"
         href="{{ asset('Mazer/dist/assets/extensions/@fortawesome/fontawesome-free/css/all.min.css') }}">
@@ -33,7 +38,9 @@
             @include('layout.header')
             <!-- Content Wrapper-->
             <div class="content-wrapper container">
-                @include('layout.breadcrumb')
+                @if (Auth::check() && in_array(Auth::user()->level_code, ['ADM', 'PGJ']))
+                    @include('layout.breadcrumb')
+                @endif
                 <!-- Main content -->
                 <div class="page-content">
                     @yield('content')
