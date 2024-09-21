@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class UserModel extends Model
+class UserModel extends Authenticatable
 {
     use HasFactory;
     protected $table = 'm_user';
     protected $primaryKey = 'user_id';
+    protected $guard = 'admin';
     protected $fillable = [
         'level_id',
         'email',
@@ -35,5 +36,18 @@ class UserModel extends Model
     public function level()
     {
         return $this->belongsTo(LevelModel::class, 'level_id', 'level_id');
+    }
+
+    public function getRoleName()
+    {
+        return $this->level->level_name;
+    }
+    public function hasRole($role)
+    {
+        return ($this->level->level_code === $role);
+    }
+    public function getRole()
+    {
+        return ($this->level->level_code);
     }
 }
