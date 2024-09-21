@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +15,36 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $data = [
+            ['level_id' => 1, 'level_code' => 'ADM', 'level_name' => 'Administrator'],
+            ['level_id' => 2, 'level_code' => 'PGJ', 'level_name' => 'Pengajar'],
+            ['level_id' => 3, 'level_code' => 'MHS', 'level_name' => 'Mahasiswa'],
+        ];
+        DB::table('m_level')->insert($data);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        $data = [
+            [
+                'user_id' => 1,
+                'level_id' => 1,
+                'email' => 'admin@gmail.com',
+                'name' => 'Administrator',
+                'password' => Hash::make('admin123'),
+            ],
+            [
+                'user_id' => 2,
+                'level_id' => 2,
+                'email' => 'pengajar@gmail.com',
+                'name' => 'Pengajar',
+                'password' => Hash::make('pengajar123'),
+            ],
+            [
+                'user_id' => 3,
+                'level_id' => 3,
+                'email' => 'mahasiswa@123',
+                'name' => 'Mahasiswa',
+                'password' => Hash::make('mahasiswa123'),
+            ],
+        ];
+        DB::table('m_user')->insert($data);
     }
 }
