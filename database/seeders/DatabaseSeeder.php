@@ -40,7 +40,7 @@ class DatabaseSeeder extends Seeder
             [
                 'user_id' => 3,
                 'level_id' => 3,
-                'email' => 'mahasiswa@123',
+                'email' => 'mahasiswa@gmail.com',
                 'name' => 'Mahasiswa',
                 'password' => Hash::make('mahasiswa123'),
             ],
