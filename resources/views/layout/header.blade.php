@@ -87,11 +87,30 @@
                             </span>
                         </a>
                     </li>
+                @elseif (Auth::check() && Auth::user()->level && Auth::user()->level->level_code === 'MHS')
+                    <li class="menu-item {{ $activeMenu == 'dashboard' ? 'active' : '' }}">
+                        <a href="{{ url('/dashboard') }}" class="menu-link"
+                            style="{{ $activeMenu == 'dashboard' ? '' : 'color: #8e9ed8' }}">
+                            <span class="align-content-center">
+                                <i class="bi bi-grid-1x2-fill me-2"></i>
+                                Dashboard
+                            </span>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ $activeMenu == 'mycourse' ? 'active' : '' }}">
+                        <a href="{{ url('/mycourse') }}" class="menu-link"
+                            style="{{ $activeMenu == 'mycourse' ? '' : 'color: #8e9ed8' }}">
+                            <span class="align-content-center">
+                                <i class="bi bi-mortarboard-fill me-2"></i>
+                                My Course
+                            </span>
+                        </a>
+                    </li>
                 @else
                     <li class="menu-item {{ $activeMenu == 'home' ? 'active' : '' }}">
                         <a href="#Home" class="menu-link"
                             style="{{ $activeMenu == 'home' ? '' : 'color: #8e9ed8' }}">
-                            <span><i class="bi bi-stack me-2"></i>Home</span>
+                            <span class=""><i class="bi bi-house-door-fill me-2"></i>Home</span>
                         </a>
                     </li>
                     <li class="menu-item {{ $activeMenu == 'contact' ? 'active' : '' }}">

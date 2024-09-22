@@ -14,6 +14,12 @@
         * {
             font-family: 'Inter';
         }
+
+        body .bi:before,
+        [class^=bi-]:before,
+        [class*=" bi-"]:before {
+            vertical-align: -.125em !important;
+        }
     </style>
     <!-- Font Awesome -->
     <link rel="stylesheet"
@@ -38,7 +44,7 @@
             @include('layout.header')
             <!-- Content Wrapper-->
             <div class="content-wrapper container">
-                @if (Auth::check() && in_array(Auth::user()->level_code, ['ADM', 'PGJ']))
+                @if (Auth::check() && Auth::user()->level && in_array(Auth::user()->level->level_code, ['ADM', 'PGJ']))
                     @include('layout.breadcrumb')
                 @endif
                 <!-- Main content -->

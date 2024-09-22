@@ -40,3 +40,26 @@ Route::middleware(['auth', 'authorize:ADM'])->group(function () {
         Route::delete('/{id}/delete', [UserController::class, 'delete']);
     });
 });
+
+Route::middleware(['auth', 'authorize:MHS'])->group(function () {
+    route::get('/dashboard', function () {
+        $activeMenu = 'dashboard';
+        return view('layout.dashboard', compact('activeMenu'));
+    });
+    route::get('/mycourse', function () {
+        $activeMenu = 'mycourse';
+        return view('courses.mycourse', compact('activeMenu'));
+    });
+    route::get('/selectedCourse', function () {
+        $activeMenu = 'selectedCourse';
+        return view('courses.selected', compact('activeMenu'));
+    });
+    route::get('/lesson', function () {
+        $activeMenu = 'lesson';
+        return view('courses.lesson', compact('activeMenu'));
+    });
+    route::get('/submission', function () {
+        $activeMenu = 'submission';
+        return view('submissions.index', compact('activeMenu'));
+    });
+});
