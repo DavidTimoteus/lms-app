@@ -1,6 +1,7 @@
 @extends('layout.template')
 
 @section('content')
+    @include('layout.breadcrumb')
     <section class="section">
         <div class="card">
             <div class="card-header">

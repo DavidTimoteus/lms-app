@@ -44,9 +44,9 @@
             @include('layout.header')
             <!-- Content Wrapper-->
             <div class="content-wrapper container">
-                @if (Auth::check() && Auth::user()->level && in_array(Auth::user()->level->level_code, ['ADM', 'PGJ']))
+                {{-- @if (Auth::check() && Auth::user()->level && in_array(Auth::user()->level->level_code, ['ADM', 'PGJ']))
                     @include('layout.breadcrumb')
-                @endif
+                @endif --}}
                 <!-- Main content -->
                 <div class="page-content">
                     @yield('content')
