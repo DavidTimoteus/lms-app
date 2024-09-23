@@ -23,6 +23,13 @@ class DatabaseSeeder extends Seeder
         DB::table('m_level')->insert($data);
 
         $data = [
+            ['category_id' => 1, 'name' => 'Web Developer'],
+            ['category_id' => 2, 'name' => 'Business'],
+            ['category_id' => 3, 'name' => 'UI/UX Design'],
+        ];
+        DB::table('m_category')->insert($data);
+
+        $data = [
             [
                 'user_id' => 1,
                 'level_id' => 1,
