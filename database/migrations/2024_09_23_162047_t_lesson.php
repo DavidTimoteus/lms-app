@@ -17,6 +17,8 @@ return new class extends Migration {
             $table->string('lesson_title');
             $table->integer('progress_percentage')->default(0);
             $table->integer('lesson_score')->default(0);
+            $table->string('modul_title');
+            $table->text('modul_path')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('user_id')->on('m_user');

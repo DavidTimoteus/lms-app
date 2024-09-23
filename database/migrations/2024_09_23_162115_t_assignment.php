@@ -10,18 +10,17 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('t_submission', function (Blueprint $table) {
-            $table->id('submission_id');
-            $table->unsignedBigInteger('user_id')->index();
-            $table->unsignedBigInteger('lessonDetail_id')->index();
+        Schema::create('t_assignment', function (Blueprint $table) {
+            $table->id('assignment_id');
+            $table->unsignedBigInteger('course')->index();
+            $table->string('title', '150');
             $table->dateTime('due_date');
             $table->time('time_remaining');
             $table->dateTime('last_modified');
             $table->text('submission_path')->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('user_id')->on('m_user');
-            $table->foreign('lessonDetail_id')->references('lessonDetail_id')->on('t_lesson_detail');
+            $table->foreign('course')->references('course_id')->on('m_course');
         });
     }
 
@@ -30,6 +29,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists(table: 't_submission');
+        Schema::dropIfExists(table: 't_assignment');
     }
 };
