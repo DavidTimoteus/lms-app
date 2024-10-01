@@ -15,9 +15,9 @@ class CategoryModel extends Model
         'category_id',
         'name'
     ];
-
     public function course()
     {
-        return $this->hasMany(CourseModel::class, 'category', localKey: 'category_id');
+        return $this->hasMany(CourseModel::class, 'category', 'category_id');
     }
+
 }
