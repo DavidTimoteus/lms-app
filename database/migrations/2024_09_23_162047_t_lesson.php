@@ -12,17 +12,14 @@ return new class extends Migration {
     {
         Schema::create('t_lesson', function (Blueprint $table) {
             $table->id('lesson_id');
-            $table->unsignedBigInteger('user_id')->index();
-            $table->unsignedBigInteger('course_id')->index();
+            $table->unsignedBigInteger('course')->index();
             $table->string('lesson_title');
             $table->integer('progress_percentage')->default(0);
             $table->integer('lesson_score')->default(0);
-            $table->string('modul_title');
             $table->text('modul_path')->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('user_id')->on('m_user');
-            $table->foreign('course_id')->references('course_id')->on('m_course');
+            $table->foreign('course')->references('course_id')->on('m_course');
         });
     }
 
