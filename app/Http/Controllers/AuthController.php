@@ -27,7 +27,7 @@ class AuthController extends Controller
 
             if (Auth::attempt($credentials)) {
                 $user = Auth::user();
-                
+
                 $levelCode = $user->level ? $user->level->level_code : null;
                 // Tambahkan level_code ke log
                 Log::info('User level_code:', ['level_code' => $levelCode]);
@@ -35,7 +35,7 @@ class AuthController extends Controller
                 return response()->json([
                     'status' => true,
                     'message' => 'Login Berhasil',
-                    'redirect' => $levelCode === 'ADM' ? url('/level') : url('/'),
+                    'redirect' => $levelCode === 'ADM' ? url('/level') : ($levelCode === 'PGJ' ? url('/dashboard') : url('/')),
                     'level_code' => $levelCode,
                 ]);
             }
