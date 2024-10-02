@@ -16,7 +16,7 @@
                             <figure class="card-img-top mb-0 overflow-hidden bsb-overlay-hover">
                                 <a href="#!">
                                     <img class="img-fluid bsb-scale bsb-hover-scale-up" loading="lazy"
-                                        src="{{ asset('assets/images/NoImage.jpg') }}">
+                                        src="{{ $course->image_path ? asset('storage/' . $course->image_path) : asset('assets/images/NoImage.jpg') }}">
                                 </a>
                                 <figcaption>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"

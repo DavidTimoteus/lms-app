@@ -1,4 +1,4 @@
-<form action="{{ url('/courses/store') }}" method="POST" id="form-tambah">
+<form action="{{ url('/courses/store') }}" method="POST" id="form-tambah" enctype="multipart/form-data">
     @csrf
     <input type="hidden" name="teacher" value="{{ auth()->user()->user_id }}">
     <div id="courseModal" class="modal-dialog modal-lg" role="document">
@@ -10,8 +10,8 @@
             <div class="modal-body">
                 <div class="form-group">
                     <div class="mb-3">
-                        <label for="formFileSm" class="form-label">Tampilan</label>
-                        <input class="form-control form-control-sm" name="image_path" id="formFileSm" type="file"
+                        <label for="image_path" class="form-label">Tampilan</label>
+                        <input class="form-control form-control-sm" name="image_path" id="image_path" type="file"
                             accept=".jpg, .jpeg, .png, .svg">
                     </div>
                 </div>
@@ -74,10 +74,13 @@
                 }
             },
             submitHandler: function(form) {
+                var formData = new FormData(form);
                 $.ajax({
                     url: form.action,
                     type: form.method,
-                    data: $(form).serialize(),
+                    data: formData,
+                    processData: false,
+                    contentType: false,
                     success: function(response) {
                         if (response.status) {
                             $('#addModal').modal('hide');
@@ -99,6 +102,14 @@
                                 text: response.message
                             });
                         }
+                    },
+                    error: function(xhr) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Terjadi kesalahan saat mengirim data.'
+                        });
+                        console.error('AJAX Error:', xhr);
                     }
                 });
                 return false;

@@ -6,13 +6,12 @@ use App\Models\CategoryModel;
 use App\Models\CourseModel;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 
 class CourseController extends Controller
 {
-    public function index()
+    public function list()
     {
         $breadcrumb = (object) [
             'title' => 'Daftar Pelajaran',
@@ -49,11 +48,12 @@ class CourseController extends Controller
         Log::info('Request Type:', ['is_ajax' => $request->ajax(), 'wants_json' => $request->wantsJson()]);
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
+                'image_path' => ['file', 'mimes:jpg,jpeg,png,svg'],
                 'teacher' => ['required', 'integer', 'exists:m_user,user_id'],
                 'category' => ['required', 'integer', 'exists:m_category,category_id'],
                 'title' => ['required', 'max:150'],
                 'info' => ['required', 'max:130'],
-                'description' => ['required'],
+                'description' => ['required']
             ];
             Log::info('Isi Validator:', $request->all());
             $validator = Validator::make($request->all(), $rules);
@@ -64,7 +64,23 @@ class CourseController extends Controller
                     'msgField' => $validator->errors()
                 ]);
             }
-            CourseModel::create($request->all());
+
+            if ($request->hasFile('image_path')) {
+                $file = $request->file('image_path');
+                $path = $file->store('uploads/moduls', 'public');
+
+                CourseModel::create([
+                    'image_path' => $path,
+                    'teacher' => $request->teacher,
+                    'category' => $request->category,
+                    'title' => $request->title,
+                    'info' => $request->info,
+                    'description' => $request->description
+                ]);
+            }else{
+                CourseModel::create($request->all());
+            }
+
             return response()->json([
                 'status' => true,
                 'message' => 'Data Berhasil Disimpan'
@@ -72,15 +88,22 @@ class CourseController extends Controller
         }
         return redirect('/');
     }
+    
     public function delete($id)
     {
         $course = CourseModel::find($id);
+
         if ($course) {
+            $course->lessons()->delete();
+            $course->assigments()->delete();
+            $course->enrolls()->delete();
             $course->delete();
-            return response()->json(['status' => true, 'message' => 'Data berhasil dihapus.']);
+            return response()->json(['status' => true, 'message' => 'Pelajaran Berhasi Dihapus.']);
         }
+
         return response()->json(['status' => false, 'message' => 'Data tidak ditemukan.']);
     }
+
 
     public function filterByCategory(Request $request)
     {
