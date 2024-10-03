@@ -96,6 +96,7 @@ Route::middleware(['auth', 'authorize:PGJ'])->group(function () {
         Route::post('/store', [LessonController::class, 'store']);
         Route::get('/{id}/edit', [LessonController::class, 'edit']);
         Route::put('/{id}/update', [LessonController::class, 'update']);
+        Route::get('/{id}/delete', [LessonController::class, 'confirm']);
         Route::delete('/{id}/delete', [LessonController::class, 'delete']);
     });
 });
