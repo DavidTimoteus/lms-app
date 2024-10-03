@@ -77,7 +77,7 @@ class CourseController extends Controller
                     'info' => $request->info,
                     'description' => $request->description
                 ]);
-            }else{
+            } else {
                 CourseModel::create($request->all());
             }
 
@@ -88,7 +88,71 @@ class CourseController extends Controller
         }
         return redirect('/');
     }
-    
+
+    public function edit(string $id)
+    {
+        $course = CourseModel::find($id);
+        $user = userModel::select('user_id', 'name')->get();
+        $category = CategoryModel::select('category_id', 'name')->get();
+
+        return view('courses.edit', [
+            'course' => $course,
+            'category' => $category,
+            'user' => $user
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        Log::info('Request data:', $request->all());
+        Log::info('Request Type:', ['is_ajax' => $request->ajax(), 'wants_json' => $request->wantsJson()]);
+        if ($request->ajax() || $request->wantsJson()) {
+            $rules = [
+                'image_path' => ['file', 'mimes:jpg,jpeg,png,svg'],
+                'category' => ['required', 'integer', 'exists:m_category,category_id'],
+                'title' => ['required', 'max:150'],
+                'info' => ['required', 'max:130'],
+                'description' => ['required']
+            ];
+
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Validasi gagal.',
+                    'msgField' => $validator->errors()
+                ]);
+            }
+
+            $check = CourseModel::find($id);
+            if ($check) {
+                if ($request->hasFile('image_path')) {
+                    $file = $request->file('image_path');
+                    $path = $file->store('uploads/moduls', 'public');
+                    $check->update([
+                        'image_path' => $path,
+                        'category' => $request->category,
+                        'title' => $request->title,
+                        'info' => $request->info,
+                        'description' => $request->description
+                    ]);
+                } else {
+                    $check->update($request->all());
+                }
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data berhasil diupdate'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data tidak ditemukan'
+                ]);
+            }
+        }
+        return redirect('/');
+    }
+
     public function delete($id)
     {
         $course = CourseModel::find($id);

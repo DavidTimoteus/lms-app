@@ -51,7 +51,7 @@
                                     </h2>
                                 </div>
                                 <p class="card-text entry-summary text-secondary">
-                                    {{ $course->description }}
+                                    {{ $course->info }}
                                 </p>
                             </div>
                             <div class="card-footer border-0 bg-transparent p-3">
@@ -77,16 +77,17 @@
                                     </div>
                                     <div class="d-flex">
                                         <li>
-                                            <a href="#" class="btn icon icon-left btn-warning">
+                                            <a class="btn icon icon-left btn-warning" 
+                                               onclick="modalAction('{{ url('/courses/' . $course->course_id . '/edit') }}')">
                                                 <i class="bi bi-pencil-square"></i>
                                                 Edit
                                             </a>
-                                        </li>
+                                        </li>               
                                         <li>
                                             <span class="px-1"></span>
                                         </li>
                                         <li>
-                                            <a href="#" class="btn icon icon-left btn-danger delete-course"
+                                            <a class="btn icon icon-left btn-danger delete-course"
                                                 data-id="{{ $course->course_id }}">
                                                 <i class="bi bi-trash"></i>
                                                 Delete

@@ -8,19 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class CourseModel extends Model
 {
     use HasFactory;
-    protected $table = 'm_course';
-    protected $primaryKey = 'course_id';
+        protected $table = 'm_course';
+        protected $primaryKey = 'course_id';
 
-    protected $fillable = [
-        'course_id',
-        'teacher',
-        'category',
-        'title',
-        'info',
-        'image_path',
-        'description',
-        'certificate_path'
-    ];
+        protected $fillable = [
+            'course_id',
+            'teacher',
+            'category',
+            'title',
+            'info',
+            'image_path',
+            'description',
+            'certificate_path'
+        ];
 
     public function user()
     {
@@ -31,15 +31,15 @@ class CourseModel extends Model
         return $this->belongsTo(CategoryModel::class, 'category', 'category_id');
     }
 
-    public function lesson()
+    public function lessons()
     {
-        return $this->hasMany(LessonModel::class, 'course_id', 'course_id');
+        return $this->hasMany(LessonModel::class, 'course', 'course_id');
     }
-    public function enroll()
+    public function enrolls()
     {
         return $this->hasMany(EnrollModel::class, 'course', 'course_id');
     }
-    public function assigment()
+    public function assigments()
     {
         return $this->hasMany(AssignmentModel::class, 'course', 'course_id');
     }
