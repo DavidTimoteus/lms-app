@@ -79,6 +79,12 @@
                             <span class="align-content-center"><i class="bi bi-stack me-2"></i>Data Level</span>
                         </a>
                     </li>
+                    <li class="menu-item {{ $activeMenu == 'category' ? 'active' : '' }}">
+                        <a href="{{ url('/category') }}" class="menu-link"
+                            style="{{ $activeMenu == 'category' ? '' : 'color: #8e9ed8' }}">
+                            <span class="align-content-center"><i class="bi bi-tags-fill me-2"></i>Data Kategori</span>
+                        </a>
+                    </li>
                     <li class="menu-item {{ $activeMenu == 'user' ? 'active' : '' }}">
                         <a href="{{ url('/user') }}" class="menu-link"
                             style="{{ $activeMenu == 'user' ? '' : 'color: #8e9ed8' }}">
@@ -88,9 +94,15 @@
                         </a>
                     </li>
                 @elseif (Auth::check() && Auth::user()->level && Auth::user()->level->level_code === 'MHS')
-                    <li class="menu-item {{ $activeMenu == 'dashboard' ? 'active' : '' }}">
-                        <a href="{{ url('/dashboard') }}" class="menu-link"
-                            style="{{ $activeMenu == 'dashboard' ? '' : 'color: #8e9ed8' }}">
+                    <li class="menu-item {{ $activeMenu == 'home' ? 'active' : '' }}">
+                        <a href="{{ url('/') }}" class="menu-link"
+                            style="{{ $activeMenu == 'home' ? '' : 'color: #8e9ed8' }}">
+                            <span class=""><i class="bi bi-house-door-fill me-2"></i>Home</span>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ $activeMenu == 'userDB' ? 'active' : '' }}">
+                        <a href="{{ url('/userDB') }}" class="menu-link"
+                            style="{{ $activeMenu == 'userDB' ? '' : 'color: #8e9ed8' }}">
                             <span class="align-content-center">
                                 <i class="bi bi-grid-1x2-fill me-2"></i>
                                 Dashboard
@@ -103,6 +115,34 @@
                             <span class="align-content-center">
                                 <i class="bi bi-mortarboard-fill me-2"></i>
                                 My Course
+                            </span>
+                        </a>
+                    </li>
+                @elseif (Auth::check() && Auth::user()->level && Auth::user()->level->level_code === 'PGJ')
+                    <li class="menu-item {{ $activeMenu == 'dashboard' ? 'active' : '' }}">
+                        <a href="{{ url('/dashboard') }}" class="menu-link"
+                            style="{{ $activeMenu == 'dashboard' ? '' : 'color: #8e9ed8' }}">
+                            <span class="align-content-center">
+                                <i class="bi bi-grid-1x2-fill me-2"></i>
+                                Dashboard
+                            </span>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ $activeMenu == 'courses' ? 'active' : '' }}">
+                        <a href="{{ url('/courses') }}" class="menu-link"
+                            style="{{ $activeMenu == 'courses' ? '' : 'color: #8e9ed8' }}">
+                            <span class="align-content-center">
+                                <i class="bi bi-mortarboard-fill me-2"></i>
+                                List Course
+                            </span>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ $activeMenu == 'lesson' ? 'active' : '' }}">
+                        <a href="{{ url('/lesson') }}" class="menu-link"
+                            style="{{ $activeMenu == 'lesson' ? '' : 'color: #8e9ed8' }}">
+                            <span class="align-content-center">
+                                <i class="bi bi-journal-bookmark-fill me-2"></i>
+                                Lesson
                             </span>
                         </a>
                     </li>
