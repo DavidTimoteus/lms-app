@@ -47,7 +47,7 @@
                         </div>
                         <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-9">
                             <h6 class="text-muted font-semibold">Quiz Created</h6>
-                            <h6 class="font-extrabold mb-0">5 Quiz</h6>
+                            <h6 class="font-extrabold mb-0 text-warning">The feature is under development.</h6>
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                         </div>
                         <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-9">
                             <h6 class="text-muted font-semibold">Unattempted Quiz</h6>
-                            <h6 class="font-extrabold mb-0">3 Quiz</h6>
+                            <h6 class="font-extrabold mb-0 text-warning">The feature is under development.</h6>
                         </div>
                     </div>
                 </div>
@@ -78,7 +78,8 @@
                     <h4>Aktivitas Harian Mahasiswa</h4>
                 </div>
                 <div class="card-body">
-                    <div id="chart-rekap-bulanan"></div>
+                    <h6 class="font-extrabold mb-0 text-warning text-center">The feature is under development.</h6>
+                    {{-- <div id="chart-rekap-bulanan"></div> --}}
                 </div>
             </div>
         </div>

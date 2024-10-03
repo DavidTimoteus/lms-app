@@ -47,7 +47,7 @@
                         </div>
                         <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-9">
                             <h6 class="text-muted font-semibold">Assignment Overdue</h6>
-                            <h6 class="font-extrabold mb-0">80.000</h6>
+                            <h6 class="font-extrabold mb-0 text-warning">The feature is under development.</h6>
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                         </div>
                         <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-9">
                             <h6 class="text-muted font-semibold">Unattempted Quiz</h6>
-                            <h6 class="font-extrabold mb-0">112</h6>
+                            <h6 class="font-extrabold mb-0 text-warning">The feature is under development.</h6>
                         </div>
                     </div>
                 </div>
@@ -75,8 +75,8 @@
         <h3>Recently Accessed Course</h3>
     </div>
 
-
-    <div class="row gy-4 gy-md-5 gx-xl-6 gy-xl-6 gx-xxl-9 gy-xxl-9">
+    <h6 class="font-extrabold mb-0 text-warning text-center">The feature is under development.</h6>
+    {{-- <div class="row gy-4 gy-md-5 gx-xl-6 gy-xl-6 gx-xxl-9 gy-xxl-9">
         <div class="col-12 col-lg-4">
             <article>
                 <div class="card border">
@@ -246,7 +246,7 @@
                 </div>
             </article>
         </div>
-    </div>
+    </div> --}}
 @endsection
 
 @push('css')
